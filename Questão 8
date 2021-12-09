@@ -1,0 +1,16 @@
+import socket, psutil
+#python Questão08_cliente.py
+HOST = socket.gethostname()  # Endereco IP do Servidor
+PORT = 9991                  # Porta que o Servidor está esperando
+udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+dest = (HOST, PORT)
+
+mem = psutil.disk_usage('C:\\')
+mem_tot = round((mem[0])/1073741824)
+mem_tot = str(mem_tot)
+
+mem_disp = round((mem[2])/1073741824)
+mem_disp = str(mem_disp)
+udp.sendto(mem_tot.encode('utf-8'), dest)
+udp.sendto(mem_disp.encode('utf-8'), dest)
+udp.close()
